@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stage de Radiesthésie – Les Dimensions de Gaïa</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --dark: #0a0e08;
+    --forest: #1a2e1a;
+    --moss: #2d4a2d;
+    --cream: #f5f0e8;
+    --text: #e8e4dc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'Cormorant Garamond', serif;
+    overflow-x: hidden;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: 
+      radial-gradient(ellipse at 30% 50%, rgba(26,46,26,0.9) 0%, transparent 60%),
+      radial-gradient(ellipse at 70% 30%, rgba(45,74,45,0.4) 0%, transparent 50%),
+      linear-gradient(180deg, #0a0e08 0%, #162016 50%, #0a0e08 100%);
+    z-index: 1;
+  }
+
+  .hero-particles {
+    position: absolute; inset: 0; z-index: 2;
+    overflow: hidden;
+  }
+
+  .particle {
+    position: absolute;
+    width: 2px; height: 2px;
+    background: var(--gold);
+    border-radius: 50%;
+    opacity: 0;
+    animation: float-particle linear infinite;
+  }
+
+  @keyframes float-particle {
+    0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.3; }
+    100% { transform: translateY(-10vh) translateX(var(--drift)); opacity: 0; }
+  }
+
+  .hero-content {
+    position: relative; z-index: 3;
+    text-align: center;
+    padding: 2rem;
+    max-width: 900px;
+  }
+
+  .badge {
+    display: inline-block;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    padding: 0.4rem 1.5rem;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeInUp 1s 0.3s forwards;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 7vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    color: var(--cream);
+    opacity: 0;
+    animation: fadeInUp 1s 0.6s forwards;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    font-style: italic;
+    color: rgba(232,228,220,0.75);
+    margin: 1.5rem 0 3rem;
+    line-height: 1.6;
+    opacity: 0;
+    animation: fadeInUp 1s 0.9s forwards;
+  }
+
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeInUp 1s 1.2s forwards;
+    flex-wrap: wrap;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: var(--gold);
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(232,228,220,0.5);
+    margin-top: 0.3rem;
+  }
+
+  .cta-primary {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light), var(--gold));
+    color: var(--dark);
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 1.1rem 3rem;
+    text-decoration: none;
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    opacity: 0;
+    animation: fadeInUp 1s 1.5s forwards;
+  }
+
+  .cta-primary::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 60%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s;
+  }
+
+  .cta-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(201,168,76,0.4); }
+  .cta-primary:hover::after { left: 150%; }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    opacity: 0;
+    animation: fadeIn 1s 2s forwards;
+  }
+
+  .scroll-hint span {
+    display: block;
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(180deg, var(--gold), transparent);
+    margin: 0 auto;
+    animation: scroll-line 2s ease-in-out infinite;
+  }
+
+  @keyframes scroll-line {
+    0%, 100% { transform: scaleY(0); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  /* ─── PHOTO COLLAGE ─── */
+  .collage-section {
+    padding: 6rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    text-align: center;
+    color: var(--cream);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .section-desc {
+    text-align: center;
+    font-size: 1.15rem;
+    font-style: italic;
+    color: rgba(232,228,220,0.65);
+    max-width: 650px;
+    margin: 0 auto 4rem;
+    line-height: 1.7;
+  }
+
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    gap: 1rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .photo-item {
+    overflow: hidden;
+    border-radius: 2px;
+    position: relative;
+  }
+
+  .photo-item.tall { grid-row: span 2; }
+  .photo-item.wide { grid-column: span 2; }
+
+  .photo-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    min-height: 220px;
+    display: block;
+    filter: brightness(0.85) saturate(0.9);
+    transition: filter 0.5s, transform 0.5s;
+  }
+
+  .photo-item:hover img {
+    filter: brightness(1) saturate(1);
+    transform: scale(1.04);
+  }
+
+  .photo-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(10,14,8,0.85));
+    padding: 2rem 1rem 0.8rem;
+    font-style: italic;
+    font-size: 0.9rem;
+    color: var(--gold-light);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .photo-item:hover .photo-caption { opacity: 1; }
+
+  /* ─── ABOUT EDDY ─── */
+  .about {
+    padding: 8rem 2rem;
+    background: linear-gradient(180deg, var(--dark) 0%, var(--forest) 50%, var(--dark) 100%);
+    position: relative;
+  }
+
+  .about::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .about-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .about-portrait {
+    position: relative;
+  }
+
+  .about-portrait img {
+    width: 100%;
+    border-radius: 2px;
+    filter: brightness(0.9) saturate(0.85);
+    display: block;
+  }
+
+  .about-portrait::after {
+    content: '';
+    position: absolute;
+    top: 1.5rem; left: 1.5rem; right: -1.5rem; bottom: -1.5rem;
+    border: 1px solid var(--gold);
+    border-radius: 2px;
+    z-index: -1;
+    opacity: 0.5;
+  }
+
+  .about-text .overline {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    display: block;
+  }
+
+  .about-text h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    color: var(--cream);
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-text p {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: rgba(232,228,220,0.8);
+    margin-bottom: 1.2rem;
+  }
+
+  .about-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.5rem;
+  }
+
+  .tag {
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--gold);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    padding: 0.3rem 0.9rem;
+    border-radius: 20px;
+    font-family: 'Cinzel', serif;
+  }
+
+  /* ─── WHAT YOU LEARN ─── */
+  .program {
+    padding: 7rem 2rem;
+  }
+
+  .program-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 4rem;
+  }
+
+  .prog-card {
+    background: linear-gradient(135deg, rgba(26,46,26,0.6) 0%, rgba(10,14,8,0.4) 100%);
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 2rem;
+    border-radius: 2px;
+    transition: border-color 0.3s, transform 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .prog-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 0;
+    background: var(--gold);
+    transition: height 0.4s;
+  }
+
+  .prog-card:hover { border-color: rgba(201,168,76,0.5); transform: translateY(-4px); }
+  .prog-card:hover::before { height: 100%; }
+
+  .prog-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .prog-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--gold-light);
+    margin-bottom: 0.8rem;
+  }
+
+  .prog-card p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: rgba(232,228,220,0.7);
+  }
+
+  /* ─── CERTIFICATES ─── */
+  .certs {
+    padding: 7rem 2rem;
+    background: var(--forest);
+    position: relative;
+  }
+
+  .certs::before, .certs::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .certs::before { top: 0; }
+  .certs::after { bottom: 0; }
+
+  .cert-scroll {
+    display: flex;
+    gap: 1.5rem;
+    max-width: 1100px;
+    margin: 4rem auto 0;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--gold) transparent;
+  }
+
+  .cert-item {
+    flex: 0 0 300px;
+  }
+
+  .cert-item img {
+    width: 100%;
+    border-radius: 4px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .cert-item:hover img {
+    transform: scale(1.03) rotate(1deg);
+    box-shadow: 0 15px 50px rgba(201,168,76,0.2);
+  }
+
+  /* ─── PRICING ─── */
+  .pricing {
+    padding: 8rem 2rem;
+    text-align: center;
+  }
+
+  .price-box {
+    max-width: 600px;
+    margin: 4rem auto 0;
+    border: 1px solid var(--gold);
+    padding: 4rem 3rem;
+    position: relative;
+    background: linear-gradient(135deg, rgba(26,46,26,0.5) 0%, rgba(10,14,8,0.3) 100%);
+  }
+
+  .price-box::before {
+    content: '✦';
+    position: absolute;
+    top: -1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--dark);
+    padding: 0 1rem;
+    color: var(--gold);
+    font-size: 1.2rem;
+  }
+
+  .price-amount {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    color: var(--gold);
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .price-desc {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: rgba(232,228,220,0.7);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+
+  .price-features {
+    list-style: none;
+    text-align: left;
+    margin-bottom: 2.5rem;
+  }
+
+  .price-features li {
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+    font-size: 1rem;
+    color: rgba(232,228,220,0.8);
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .price-features li::before {
+    content: '◆';
+    color: var(--gold);
+    font-size: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  /* ─── CTA FINAL ─── */
+  .final-cta {
+    padding: 8rem 2rem;
+    text-align: center;
+    background: linear-gradient(180deg, var(--dark) 0%, var(--forest) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .final-cta::before {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .final-cta h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 4rem);
+    color: var(--cream);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .final-cta h2 em {
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .final-cta p {
+    font-size: 1.15rem;
+    font-style: italic;
+    color: rgba(232,228,220,0.7);
+    max-width: 600px;
+    margin: 0 auto 3rem;
+    line-height: 1.7;
+  }
+
+  .btn-group {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .cta-secondary {
+    display: inline-block;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    padding: 1rem 2.5rem;
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  .cta-secondary:hover {
+    background: var(--gold);
+    color: var(--dark);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    padding: 3rem 2rem;
+    text-align: center;
+    border-top: 1px solid rgba(201,168,76,0.15);
+  }
+
+  footer p {
+    font-size: 0.85rem;
+    color: rgba(232,228,220,0.4);
+    margin-bottom: 0.5rem;
+  }
+
+  footer a {
+    color: var(--gold);
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  footer a:hover { opacity: 0.7; }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    text-align: center;
+    color: var(--gold);
+    font-size: 1.2rem;
+    letter-spacing: 1rem;
+    padding: 2rem 0;
+    opacity: 0.5;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    .photo-grid { grid-template-columns: 1fr 1fr; }
+    .photo-item.tall, .photo-item.wide { grid-row: span 1; grid-column: span 1; }
+    .about-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .about-portrait::after { display: none; }
+    .hero-stats { gap: 1.5rem; }
+    .price-box { padding: 2.5rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- PARTICLES -->
+<div class="hero-particles" id="particles"></div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="badge">Les Dimensions de Gaïa — Occitanie</div>
+    <h1>Apprendre la<br><em>Radiesthésie</em><br>en pleine nature</h1>
+    <p class="hero-sub">
+      Un art ancestral transmis sur le terrain. Un pendule entre tes mains.<br>
+      Une certification progressive, sortie après sortie.
+    </p>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">120+</div>
+        <div class="stat-label">Sorties guidées</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">1500+</div>
+        <div class="stat-label">Personnes accompagnées</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">4</div>
+        <div class="stat-label">Niveaux certifiants</div>
+      </div>
+    </div>
+    <a href="https://share.google/SyOUuVB0zYDztcOEF" target="_blank" class="cta-primary">
+      Je rejoins le parcours →
+    </a>
+  </div>
+  <div class="scroll-hint"><span></span></div>
+</section>
+
+<!-- ═══ COLLAGE PHOTOS ═══ -->
+<section class="collage-section">
+  <div class="section-label">En images</div>
+  <h2 class="section-title">Des sorties uniques,<br>au cœur du vivant</h2>
+  <p class="section-desc">Chaque sortie est une aventure sensorielle et subtile, dans les forêts, les lieux sacrés et les sites énergétiques de France.</p>
+
+  <div class="photo-grid">
+    <div class="photo-item tall">
+      <img src="35084.webp" alt="Eddy Boussetta avec pendule dans la nature">
+      <div class="photo-caption">Pratique du pendule en nature</div>
+    </div>
+    <div class="photo-item">
+      <img src="34972.jpg" alt="Stage de radiesthésie">
+      <div class="photo-caption">Stage en continu</div>
+    </div>
+    <div class="photo-item">
+      <img src="34973.jpg" alt="Illustration stage radiesthésie">
+      <div class="photo-caption">En forêt avec le groupe</div>
+    </div>
+    <div class="photo-item">
+      <img src="35072.webp" alt="Baguettes de sourcier">
+      <div class="photo-caption">Les baguettes de sourcier</div>
+    </div>
+    <div class="photo-item">
+      <img src="35074.webp" alt="Antenne de Lecher terrain">
+      <div class="photo-caption">Antenne de Lecher sur le terrain</div>
+    </div>
+    <div class="photo-item wide">
+      <img src="35190.jpg" alt="Outils de radiesthésie">
+      <div class="photo-caption">Arsenal d'outils — pendules, baguettes, tensor...</div>
+    </div>
+    <div class="photo-item">
+      <img src="34692.jpg" alt="Outils sur table">
+      <div class="photo-caption">Apprentissage pratique</div>
+    </div>
+    <div class="photo-item">
+      <img src="35067.webp" alt="Affiche radiesthésie">
+      <div class="photo-caption">120+ sorties en France</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ À PROPOS ═══ -->
+<section class="about">
+  <div class="about-inner">
+    <div class="about-portrait">
+      <img src="35084.webp" alt="Eddy Boussetta">
+    </div>
+    <div class="about-text">
+      <span class="overline">Ton guide</span>
+      <h2>Eddy Boussetta —<br>Fondateur des<br>Dimensions de Gaïa</h2>
+      <p>
+        Auteur, musicien, conférencier, thérapeute en hypnose éricksonienne et magnétisme.
+        Depuis des années, Eddy accompagne des centaines de personnes à franchir le seuil
+        des mondes subtils — radiesthésie, géobiologie, esprits de la nature.
+      </p>
+      <p>
+        Né à Paris, enraciné aujourd'hui en Occitanie, il a parcouru la France pour transmettre
+        cet art ancestral sur le terrain, en forêt, dans les lieux sacrés, au bord des sources.
+        Pas en salle. Pas derrière un écran. Dans le vivant.
+      </p>
+      <p>
+        Il est aussi l'auteur du <em>Guide des Esprits de la Nature</em> et de plusieurs ouvrages
+        sur les mondes subtils. Retrouve toute son actualité sur ses sites dédiés.
+      </p>
+      <div class="about-tags">
+        <span class="tag">Auteur</span>
+        <span class="tag">Musicien</span>
+        <span class="tag">Thérapeute</span>
+        <span class="tag">Géobiologie</span>
+        <span class="tag">Esprits de la Nature</span>
+        <span class="tag">Shinrin-yoku</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PROGRAMME ═══ -->
+<section class="program">
+  <div class="section-label">Le parcours</div>
+  <h2 class="section-title">Ce que tu vas apprendre</h2>
+  <p class="section-desc">Un vrai parcours structuré, progressif, certifiant — directement dans la nature.</p>
+
+  <div class="program-grid">
+    <div class="prog-card">
+      <div class="prog-icon">🔮</div>
+      <h3>Pendule & Calibration</h3>
+      <p>Convention OUI/NON, calibration du pendule, premiers cadrans. Tu apprends à travailler avec ton ressenti subtil dès la première sortie.</p>
+    </div>
+    <div class="prog-card">
+      <div class="prog-icon">🌿</div>
+      <h3>Baguettes de Sourcier</h3>
+      <p>Détection de terrain, sources, failles, zones d'énergie. Les baguettes deviennent une extension naturelle de ta sensibilité.</p>
+    </div>
+    <div class="prog-card">
+      <div class="prog-icon">📊</div>
+      <h3>Échelle de Bovis</h3>
+      <p>Mesurer le taux vibratoire d'un lieu, d'un aliment, d'une personne. Un outil fascinant pour évaluer l'énergie avec précision.</p>
+    </div>
+    <div class="prog-card">
+      <div class="prog-icon">⚡</div>
+      <h3>Géobiologie de terrain</h3>
+      <p>Identifier les réseaux Hartmann et Curry, les nœuds géopathiques, les cours d'eau souterrains. Diagnositc complet sur site.</p>
+    </div>
+    <div class="prog-card">
+      <div class="prog-icon">🏺</div>
+      <h3>Antenne de Lecher & Tensor</h3>
+      <p>Les outils avancés du géobiologue. Analyse vibratoire, bilan chakras, diagnostic énergétique de l'espace de vie.</p>
+    </div>
+    <div class="prog-card">
+      <div class="prog-icon">🌀</div>
+      <h3>Esprits de la Nature</h3>
+      <p>Fées, Lutins, Elfes, Vouivres, Dévas... Découvrir et percevoir ces présences subtiles dans les lieux naturels et sacrés.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CERTIFICATIONS ═══ -->
+<section class="certs">
+  <div class="section-label">Progression certifiée</div>
+  <h2 class="section-title" style="text-align:center">4 niveaux de certification</h2>
+  <p class="section-desc" style="text-align:center;max-width:600px;margin:1rem auto 0;font-style:italic;color:rgba(232,228,220,0.65)">
+    Chaque niveau valide tes acquis. Un certificat officiel signé par Eddy Boussetta.
+    Débutant · Intermédiaire · Professionnel · Expert.
+  </p>
+
+  <div class="cert-scroll">
+    <div class="cert-item">
+      <img src="34689.jpg" alt="Certificat Débutant">
+    </div>
+    <div class="cert-item">
+      <img src="34690.jpg" alt="Certificat Intermédiaire">
+    </div>
+    <div class="cert-item">
+      <img src="34691.jpg" alt="Certificat Professionnel">
+    </div>
+    <div class="cert-item">
+      <img src="34947.png" alt="Certificat Expert">
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TARIF ═══ -->
+<section class="pricing">
+  <div class="section-label">Accessible à tous</div>
+  <h2 class="section-title">Tarif Libre & Conscient</h2>
+  <p class="section-desc">L'argent ne sera jamais un obstacle à ton apprentissage.</p>
+
+  <div class="price-box">
+    <div class="price-amount">Libre</div>
+    <div class="price-desc">
+      Tu donnes ce que tu peux, ce qui te semble juste.<br>
+      L'essentiel, c'est que tu sois là.
+    </div>
+    <ul class="price-features">
+      <li>Journée complète en pleine nature</li>
+      <li>Outils fournis sur place pour la pratique</li>
+      <li>Enseignement progressif et personnalisé</li>
+      <li>Certification au fur et à mesure</li>
+      <li>Accès aux 4 niveaux : Débutant → Expert</li>
+      <li>Groupe de partage et suivi continu</li>
+      <li>Esprits de la nature, géobiologie, divination</li>
+    </ul>
+    <a href="https://share.google/SyOUuVB0zYDztcOEF" target="_blank" class="cta-primary" style="opacity:1;animation:none;">
+      S'inscrire maintenant →
+    </a>
+  </div>
+</section>
+
+<!-- ═══ DIAPORAMA VIDÉO ═══ -->
+<section class="collage-section" style="padding: 5rem 2rem;">
+  <div class="section-label">Revivez les sorties</div>
+  <h2 class="section-title">Diaporama — Stage en images</h2>
+  <div id="slideshow" style="max-width:850px;margin:3rem auto 0;position:relative;overflow:hidden;border-radius:4px;box-shadow:0 20px 80px rgba(0,0,0,0.6);">
+    <div id="slides-container" style="display:flex;transition:transform 0.8s cubic-bezier(0.77,0,0.18,1);">
+    </div>
+    <div id="slide-caption" style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(10,14,8,0.9));padding:3rem 2rem 1.5rem;font-style:italic;font-size:1.1rem;color:var(--gold-light);text-align:center;"></div>
+    <button id="prev-btn" onclick="changeSlide(-1)" style="position:absolute;left:1rem;top:50%;transform:translateY(-50%);background:rgba(10,14,8,0.6);border:1px solid var(--gold);color:var(--gold);width:3rem;height:3rem;border-radius:50%;cursor:pointer;font-size:1.2rem;transition:background 0.2s;">‹</button>
+    <button id="next-btn" onclick="changeSlide(1)" style="position:absolute;right:1rem;top:50%;transform:translateY(-50%);background:rgba(10,14,8,0.6);border:1px solid var(--gold);color:var(--gold);width:3rem;height:3rem;border-radius:50%;cursor:pointer;font-size:1.2rem;transition:background 0.2s;">›</button>
+    <div id="dots" style="position:absolute;bottom:0.5rem;left:50%;transform:translateX(-50%);display:flex;gap:0.4rem;"></div>
+  </div>
+</section>
+
+<!-- ═══ CTA FINAL ═══ -->
+<section class="final-cta">
+  <div class="section-label">Prêt à commencer ?</div>
+  <h2>La nature t'attend.<br><em>Rejoins l'aventure.</em></h2>
+  <p>Inscris-toi à la prochaine sortie ou découvre toute l'actualité des Dimensions de Gaïa sur les sites officiels.</p>
+
+  <div class="btn-group">
+    <a href="https://share.google/SyOUuVB0zYDztcOEF" target="_blank" class="cta-primary" style="opacity:1;animation:none;">
+      S'inscrire à la prochaine sortie →
+    </a>
+    <a href="https://lesespritsdelanature.simdif.com/contact.html" target="_blank" class="cta-secondary">
+      Prendre contact
+    </a>
+    <a href="https://share.google/aRc2aRDLhaTbL1xzP" target="_blank" class="cta-secondary">
+      Voir le programme complet
+    </a>
+  </div>
+
+  <div style="margin-top:4rem;display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;">
+    <a href="https://www.lesdimensionsdegaia.com" target="_blank" style="color:rgba(232,228,220,0.4);text-decoration:none;font-size:0.85rem;transition:color 0.2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(232,228,220,0.4)'">www.lesdimensionsdegaia.com</a>
+    <span style="color:rgba(232,228,220,0.2)">·</span>
+    <a href="https://lesespritsdelanature.simdif.com" target="_blank" style="color:rgba(232,228,220,0.4);text-decoration:none;font-size:0.85rem;transition:color 0.2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(232,228,220,0.4)'">lesespritsdelanature.simdif.com</a>
+    <span style="color:rgba(232,228,220,0.2)">·</span>
+    <a href="tel:0749873547" style="color:rgba(232,228,220,0.4);text-decoration:none;font-size:0.85rem;">07.49.87.35.47</a>
+  </div>
+</section>
+
+<footer>
+  <p>© Les Dimensions de Gaïa — Eddy Boussetta</p>
+  <p><a href="https://www.lesdimensionsdegaia.com">www.lesdimensionsdegaia.com</a></p>
+</footer>
+
+<script>
+// ─── PARTICULES ───
+const container = document.getElementById('particles');
+for (let i = 0; i < 40; i++) {
+  const p = document.createElement('div');
+  p.className = 'particle';
+  p.style.left = Math.random() * 100 + '%';
+  p.style.setProperty('--drift', (Math.random() * 200 - 100) + 'px');
+  p.style.animationDuration = (8 + Math.random() * 15) + 's';
+  p.style.animationDelay = (Math.random() * 20) + 's';
+  p.style.width = p.style.height = (1 + Math.random() * 3) + 'px';
+  container.appendChild(p);
+}
+
+// ─── DIAPORAMA ───
+const slides = [
+  { src: '35084.webp', caption: 'Eddy en pratique — pendule et cahier de radiesthésie' },
+  { src: '35190.jpg', caption: 'Stage de Radiesthésie en Continu — certification progressive' },
+  { src: '34972.jpg', caption: 'Illustration de stage — la forêt comme salle de classe' },
+  { src: '34973.jpg', caption: 'Stage artistique — l\'art de la radiesthésie mis en image' },
+  { src: '35072.webp', caption: 'Les baguettes de sourcier — détection sur le terrain' },
+  { src: '35074.webp', caption: 'Antenne de Lecher — outil avancé de géobiologie' },
+  { src: '35067.webp', caption: 'Radiesthésie & Arts Divinatoires — apprendre sur le terrain' },
+  { src: '34692.jpg', caption: 'Vue plongeante — l\'arsenal complet du radiesthésiste' },
+  { src: '35064.webp', caption: 'Baguettes dorées — technique des deux mains' },
+  { src: '35063.webp', caption: 'Pendule sur l\'échelle de Bovis — mesure du taux vibratoire' },
+  { src: '34947.png', caption: 'Certificat Expert — le plus haut niveau de maîtrise' },
+  { src: '35066.webp', caption: 'Utilisation de l\'échelle de Bovis in situ' },
+];
+
+const sc = document.getElementById('slides-container');
+const dotsEl = document.getElementById('dots');
+const captionEl = document.getElementById('slide-caption');
+let cur = 0;
+let timer;
+
+slides.forEach((s, i) => {
+  const div = document.createElement('div');
+  div.style.cssText = 'flex:0 0 100%;';
+  const img = document.createElement('img');
+  img.src = s.src;
+  img.alt = s.caption;
+  img.style.cssText = 'width:100%;height:500px;object-fit:cover;display:block;';
+  div.appendChild(img);
+  sc.appendChild(div);
+
+  const dot = document.createElement('div');
+  dot.style.cssText = `width:6px;height:6px;border-radius:50%;background:${i===0?'var(--gold)':'rgba(201,168,76,0.3)'};cursor:pointer;transition:background 0.3s;`;
+  dot.onclick = () => goTo(i);
+  dotsEl.appendChild(dot);
+});
+
+captionEl.textContent = slides[0].caption;
+
+function goTo(n) {
+  cur = (n + slides.length) % slides.length;
+  sc.style.transform = `translateX(-${cur * 100}%)`;
+  captionEl.textContent = slides[cur].caption;
+  dotsEl.querySelectorAll('div').forEach((d, i) => {
+    d.style.background = i === cur ? 'var(--gold)' : 'rgba(201,168,76,0.3)';
+  });
+  resetTimer();
+}
+
+function changeSlide(dir) { goTo(cur + dir); }
+
+function resetTimer() {
+  clearInterval(timer);
+  timer = setInterval(() => goTo(cur + 1), 4500);
+}
+
+resetTimer();
+
+// ─── SCROLL REVEAL ───
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.prog-card, .cert-item, .photo-item').forEach(el => {
+  el.style.cssText += 'opacity:0;transform:translateY(20px);transition:opacity 0.6s,transform 0.6s;';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
